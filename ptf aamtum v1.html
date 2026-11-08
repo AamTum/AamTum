@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AamTum | Roblox Developer Portfolio</title>
+    <!-- Font Kartun Adopt Me -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0;
+            padding: 60px 20px;
+            /* Background Garis-garis Oranye khas Adopt Me */
+            background: repeating-linear-gradient(-45deg, #fba530, #fba530 40px, #f59723 40px, #f59723 80px);
+            font-family: 'Nunito', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .bold-font, .btn {
+            font-family: 'Fredoka One', cursive;
+        }
+
+        /* Container Utama untuk scrolling panjang */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+            position: relative;
+        }
+
+        /* --- DEKORASI DAUN --- */
+        .leaf { position: absolute; width: 60px; height: 60px; background: #4ade57; border-radius: 0 60px 0 60px; border: 4px solid #33a63d; z-index: 0; }
+        .l-1 { top: -20px; left: -40px; transform: rotate(-30deg); }
+        .l-2 { top: 300px; right: -30px; transform: rotate(45deg); }
+        .l-3 { top: 800px; left: -20px; transform: rotate(-70deg); }
+        .l-4 { top: 1400px; right: -40px; transform: rotate(110deg); }
+        .l-5 { top: 2000px; left: -30px; transform: rotate(-10deg); }
+        .l-6 { bottom: 100px; right: -20px; transform: rotate(60deg); }
+
+        /* --- BASE PAPAN KAYU --- */
+        .wood-board {
+            background: #9a582f;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: inset 0 0 0 5px #754425, 0 15px 0 #5c351b, 0 25px 20px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .board-title {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #9f5b30;
+            border: 6px solid #6b3e21;
+            border-radius: 10px;
+            padding: 10px 40px;
+            color: white;
+            font-size: 32px;
+            white-space: nowrap;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.2);
+            z-index: 10;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        .board-title::before, .board-title::after {
+            content: ''; position: absolute; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; background: #4a2915; border-radius: 50%; box-shadow: inset 2px 2px 0 rgba(0,0,0,0.6);
+        }
+        .board-title::before { left: 15px; } .board-title::after { right: 15px; }
+
+        .board-inner {
+            background: linear-gradient(180deg, #5fc3fa 0%, #3494dc 100%);
+            border-radius: 8px;
+            border: 5px solid #36b0ff;
+            padding: 30px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
+            margin-top: 25px;
+        }
+
+        .paper-card {
+            background: radial-gradient(circle at 12px 12px, #754425 3px, transparent 4px), #ffffff;
+            background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+            border-radius: 5px;
+            padding: 20px 25px;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        /* --- SECTION 1: HERO / ABOUT --- */
+        .hero-layout { display: flex; gap: 30px; align-items: center; }
+        .hero-avatar {
+            width: 200px; height: 200px; background: #6bb9e2; border: 8px solid #8e5533; border-radius: 15px; flex-shrink: 0; overflow: hidden; box-shadow: 0 6px 0 rgba(0,0,0,0.2); transform: rotate(-3deg);
+        }
+        .hero-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-text h2 { color: #2da1e7; font-size: 42px; margin: 0 0 10px 0; text-shadow: 2px 2px 0px rgba(255,255,255,0.5); line-height: 1.1; }
+        .hero-text p { color: #555; font-size: 18px; font-weight: 800; line-height: 1.5; margin-bottom: 15px; }
+        .pill-container { display: flex; flex-wrap: wrap; gap: 10px; }
+        .pill { background: #fca835; color: white; padding: 6px 15px; border-radius: 20px; font-size: 14px; font-weight: 900; box-shadow: 0 3px 0 #d9881f; text-shadow: 1px 1px 0 rgba(0,0,0,0.2); }
+
+        /* --- SECTION 2: SKILLS --- */
+        .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .skill-item { background: rgba(255,255,255,0.9); border: 4px solid white; border-radius: 12px; padding: 20px 10px; text-align: center; box-shadow: 0 5px 0 rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .skill-item:hover { transform: translateY(-5px); }
+        .skill-icon { font-size: 45px; margin-bottom: 10px; }
+        .skill-name { color: #2da1e7; font-size: 16px; margin-bottom: 5px; }
+        .skill-desc { color: #666; font-size: 13px; font-weight: 800; line-height: 1.3; }
+
+        /* --- SECTION 3: SHOWCASE --- */
+        .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .showcase-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 0 rgba(0,0,0,0.1); }
+        .showcase-img { height: 200px; background: #222; position: relative; }
+        .showcase-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .showcase-tag { position: absolute; top: 10px; left: 10px; background: #a028d7; color: white; padding: 5px 12px; border-radius: 12px; font-size: 12px; box-shadow: 0 3px 0 #7a1ca6; text-shadow: 1px 1px 0 rgba(0,0,0,0.3);}
+        .showcase-info { padding: 15px; }
+        .showcase-info h3 { color: #2da1e7; font-size: 22px; margin: 0 0 5px 0; }
+        .showcase-info p { color: #666; font-size: 14px; font-weight: 800; margin: 0; line-height: 1.4; }
+
+        /* --- SECTION 4: PROJECTS --- */
+        .task-stack { display: flex; flex-direction: column; gap: 15px; }
+        .task-row { display: flex; justify-content: space-between; align-items: center; }
+        .task-row:nth-child(odd) { transform: rotate(-0.5deg); }
+        .task-row:nth-child(even) { transform: rotate(0.5deg); }
+        .progress-bar-container { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
+        .progress-bar { flex: 1; height: 18px; background: repeating-linear-gradient(-45deg, #989898, #989898 10px, #868686 10px, #868686 20px); border-radius: 10px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+        .progress-fill { height: 100%; background: repeating-linear-gradient(-45deg, #68e357, #68e357 10px, #56c547 10px, #56c547 20px); border-radius: 10px; width: 100%; }
+        .task-reward { font-size: 38px; color: #4ee128; -webkit-text-stroke: 1px #2a8733; text-shadow: 2px 2px 0 #2a8733; transform: rotate(-10deg); margin-left: 20px; }
+
+        /* --- SECTION 5: CONTACT --- */
+        .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .contact-box { text-align: center; }
+        .contact-box h3 { color: #f73847; font-size: 26px; margin: 0 0 15px 0; }
+        .payment-methods { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .pay-tag { background: #4ed533; color: white; padding: 8px 20px; border-radius: 8px; font-size: 16px; box-shadow: 0 4px 0 #31971c; text-shadow: 1px 1px 0 rgba(0,0,0,0.2); }
+
+        .btn-green {
+            background: #4ed533; border-radius: 12px; box-shadow: 0 6px 0 #31971c; color: white; font-size: 26px; padding: 15px 40px; text-decoration: none; display: inline-block; transition: transform 0.1s, box-shadow 0.1s; text-shadow: 2px 2px 0 rgba(0,0,0,0.2); text-align: center; width: 100%; margin-top: 30px;
+        }
+        .btn-green:active { transform: translateY(6px); box-shadow: 0 0px 0 #31971c; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 850px) {
+            .hero-layout { flex-direction: column; text-align: center; }
+            .hero-avatar { transform: rotate(0); }
+            .pill-container { justify-content: center; }
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            .showcase-grid { grid-template-columns: 1fr; }
+            .contact-layout { grid-template-columns: 1fr; }
+            .board-title { font-size: 24px; padding: 8px 20px; }
+        }
+        @media (max-width: 500px) {
+            .skills-grid { grid-template-columns: 1fr; }
+            .task-row { flex-direction: column; text-align: center; }
+            .task-reward { margin-left: 0; margin-top: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <!-- Daun Hiasan -->
+        <div class="leaf l-1"></div>
+        <div class="leaf l-2"></div>
+        <div class="leaf l-3"></div>
+        <div class="leaf l-4"></div>
+        <div class="leaf l-5"></div>
+        <div class="leaf l-6"></div>
+
+        <!-- 1. HERO/ABOUT -->
+        <div class="wood-board">
+            <h1 class="board-title">ROBLOX CREATOR</h1>
+            <div class="board-inner">
+                <div class="paper-card hero-layout">
+                    <div class="hero-avatar">
+                        <img src="https://tr.rbxcdn.com/18797f7fa0812eebf0f9b6b7a5ee2e3d/352/352/Avatar/Png" alt="AamTum Avatar">
+                    </div>
+                    <div class="hero-text">
+                        <h2>Hey there! 👋 I'm AamTum</h2>
+                        <p>Making game worlds come alive! I've been playing Roblox since 2017 and working as a developer & animator since around 2018/2019.</p>
+                        <p>My main focus is creating animations and visual experiences that help games feel more immersive inside and outside the Roblox platform.</p>
+                        
+                        <div class="pill-container">
+                            <div class="pill">📍 Indonesia (GMT+7)</div>
+                            <div class="pill">🎨 Team Artist @ AKRI</div>
+                            <div class="pill">🗣️ EN / ID / MS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. SKILLS -->
+        <div class="wood-board">
+            <h1 class="board-title">SKILLS & SERVICES</h1>
+            <div class="board-inner">
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-icon">🏃</div>
+                        <h3 class="skill-name bold-font">Animating</h3>
+                        <p class="skill-desc">R6, R15 and custom-rig animation, from expressive movement to actions.</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🦴</div>
+                        <h3 class="skill-name bold-font">Rigging</h3>
+                        <p class="skill-desc">Custom character, creature and object rigs to bring elements to life.</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🗔</div>
+                        <h3 class="skill-name bold-font">UI / UX</h3>
+                        <p class="skill-desc">Roblox Studio interfaces & handmade concepts via Adobe and Figma.</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">✨</div>
+                        <h3 class="skill-name bold-font">VFX</h3>
+                        <p class="skill-desc">Visual effects for characters and game experiences.</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🎬</div>
+                        <h3 class="skill-name bold-font">Cutscenes</h3>
+                        <p class="skill-desc">Part-to-camera scenes and event-triggered sequences.</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🖼️</div>
+                        <h3 class="skill-name bold-font">Render Art</h3>
+                        <p class="skill-desc">High-quality Roblox renders and Blender renders.</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🎥</div>
+                        <h3 class="skill-name bold-font">Trailers</h3>
+                        <p class="skill-desc">Trailer production in Blender or Roblox Studio.</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🌐</div>
+                        <h3 class="skill-name bold-font">Translation</h3>
+                        <p class="skill-desc">Localizing games: English ↔ Bahasa Indonesia & Malay.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. SHOWCASE -->
+        <div class="wood-board">
+            <h1 class="board-title">THE SHOWCASE</h1>
+            <div class="board-inner">
+                <div class="showcase-grid">
+                    <div class="showcase-card">
+                        <div class="showcase-img">
+                            <span class="showcase-tag bold-font">3D ANIMATION</span>
+                            <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/5X/2/d/1/1/2d110059963aac9af3a18c2a928b4cba727cd841.gif">
+                        </div>
+                        <div class="showcase-info">
+                            <h3 class="bold-font">Character Movement</h3>
+                            <p>Bringing R15 & Custom Rigs to life with smooth, expressive in-game actions.</p>
+                        </div>
+                    </div>
+                    <div class="showcase-card">
+                        <div class="showcase-img">
+                            <span class="showcase-tag bold-font" style="background: #fca835; box-shadow: 0 3px 0 #d9881f;">UI / UX DESIGN</span>
+                            <img src="https://tr.rbxcdn.com/18797f7fa0812eebf0f9b6b7a5ee2e3d/352/352/Avatar/Png" style="filter: blur(2px);">
+                        </div>
+                        <div class="showcase-info">
+                            <h3 class="bold-font">Player Interface</h3>
+                            <p>Clean, intuitive menus and HUDs created in Figma and imported to Studio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. PROJECTS -->
+        <div class="wood-board">
+            <h1 class="board-title">PROJECTS & TEAMS</h1>
+            <div class="board-inner">
+                <div class="task-stack">
+                    <div class="paper-card task-row">
+                        <div style="flex:1;">
+                            <h2 style="color: #2da1e7; margin:0 0 5px 0; font-size:26px;" class="bold-font">Team AKRI</h2>
+                            <p style="color: #555; font-weight: 800; margin:0; font-size:16px; font-style:italic;">Role: Staff Artist</p>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar"><div class="progress-fill"></div></div>
+                                <span class="bold-font" style="color: #2da1e7; font-size:20px;">1/1</span>
+                            </div>
+                        </div>
+                        <div class="task-reward bold-font">⭐</div>
+                    </div>
+                    <div class="paper-card task-row">
+                        <div style="flex:1;">
+                            <h2 style="color: #2da1e7; margin:0 0 5px 0; font-size:26px;" class="bold-font">Roblox Experiences</h2>
+                            <p style="color: #555; font-weight: 800; margin:0; font-size:15px; font-style:italic;">Indo Hangout, Indo Voice, Inco Rails, NES Hangout, Jakarta Interactive.</p>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar"><div class="progress-fill"></div></div>
+                                <span class="bold-font" style="color: #2da1e7; font-size:20px;">5/5</span>
+                            </div>
+                        </div>
+                        <div class="task-reward bold-font" style="color:#fca835; -webkit-text-stroke: 1px #d9881f; text-shadow: 2px 2px 0 #d9881f;">$PRO</div>
+                    </div>
+                    <div class="paper-card task-row">
+                        <div style="flex:1;">
+                            <h2 style="color: #2da1e7; margin:0 0 5px 0; font-size:26px;" class="bold-font">Local & Indie Projects</h2>
+                            <p style="color: #555; font-weight: 800; margin:0; font-size:15px; font-style:italic;">Dog Walk, Lick a Brainrot, Fish a Slime, Luckyblock Shop.</p>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar"><div class="progress-fill"></div></div>
+                                <span class="bold-font" style="color: #2da1e7; font-size:20px;">4/4</span>
+                            </div>
+                        </div>
+                        <div class="task-reward bold-font">🏆</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. CONTACT & PAYMENT -->
+        <div class="wood-board">
+            <h1 class="board-title">LET'S WORK TOGETHER!</h1>
+            <div class="board-inner">
+                <div class="contact-layout">
+                    <div class="paper-card contact-box">
+                        <h3 class="bold-font">💬 Reach Me Out</h3>
+                        <p style="font-weight: 800; color: #555; font-size: 16px;">
+                            For enquiries, project details or a full portfolio request, Discord is the recommended way to reach me.
+                        </p>
+                        <div style="background: #e0f2fe; border: 2px dashed #36b0ff; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <span style="display:block; color: #0284c7; font-weight:900; font-size: 14px; text-transform:uppercase;">Discord Username</span>
+                            <span class="bold-font" style="font-size: 28px; color: #2da1e7;">aamtum</span>
+                        </div>
+                    </div>
+                    <div class="paper-card contact-box">
+                        <h3 class="bold-font" style="color:#fca835;">💰 Payment Methods</h3>
+                        <p style="font-weight: 800; color: #555; font-size: 16px;">
+                            I accept multiple forms of payment for commissions and contract work:
+                        </p>
+                        <div class="payment-methods">
+                            <div class="pay-tag bold-font">R$ Robux</div>
+                            <div class="pay-tag bold-font" style="background: #31b3ff; box-shadow: 0 4px 0 #2087c4;">PayPal</div>
+                        </div>
+                        <div class="payment-methods">
+                            <div class="pay-tag bold-font" style="background: #f73847; box-shadow: 0 4px 0 #b9202f;">Rp Rupiah (IDR)</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://devforum.roblox.com/t/portfolio-aamtum/3160327" target="_blank" class="btn-green bold-font">Open DevForum Portfolio ➔</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
